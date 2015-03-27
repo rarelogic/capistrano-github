@@ -23,15 +23,23 @@ require 'capistrano/github'
 ```ruby
 # deploy.rb
 set :github_access_token, '89c3be3d1f917b6ccf5e2c141dbc403f57bc140c'
-
-
-before 'deploy:starting', 'github:deployment:create'
-after  'deploy:starting', 'github:deployment:pending'
-after  'deploy:finished', 'github:deployment:success'
-after  'deploy:failed',   'github:deployment:failure'
 ```
 
-You can get your personal GH token [here](https://github.com/settings/applications)
+You can get your personal GH token
+[here](https://github.com/settings/applications) and
+[here](https://help.github.com/articles/creating-an-access-token-for-command-line-use/)
+you have a useful how-to.
+
+Optionally, you can override deployment options:
+
+```ruby
+set :github_deployment, -> do
+  {
+    auto_merge:  false,
+    environment: fetch(:stage),
+  }
+end
+```
 
 ## Usage
 
