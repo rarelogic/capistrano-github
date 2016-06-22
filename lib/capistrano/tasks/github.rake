@@ -40,7 +40,8 @@ namespace :github do
 
       gh = fetch(:github_deployment_api)
       payload = fetch(:github_deployment_payload)
-      config = fetch(:github_deployment).merge(payload: payload)
+      required_contexts = fetch(:github_deployment_required_contexts)
+      config = fetch(:github_deployment).merge(payload: payload, required_contexts: required_contexts)
       branch = fetch(:branch)
 
       set :current_github_deployment, deployment = gh.create_deployment(branch, config)
